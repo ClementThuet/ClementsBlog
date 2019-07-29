@@ -2,13 +2,25 @@
 
 class Home extends Controller{
     
-    public function index($name=''){
+    public function index(){
         
-        $user = $this->model('User');
-        $user->name =$name;
+        //Rendu du template
+        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $twig = new Twig\Environment($loader);
         
-        $this->view('home/index');
-        echo ('home/index');
-    }
+        echo $twig->render('home.twig',['param'=>'test']);
+        
+   }
+   
+   public function E404(){
+        
+        //Rendu du template
+        /*$loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $twig = new Twig\Environment($loader);
+        
+        echo $twig->render('404.twig');*/
+        
+   }
+
         
 }

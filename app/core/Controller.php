@@ -4,7 +4,7 @@ class Controller
 {
     protected function model($model){
         
-        require_once '../app/models/'.$model.'.php';
+        require_once '../src/'.$model.'.php';
         return new $model();
     }
     
