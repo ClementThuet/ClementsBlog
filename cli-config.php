@@ -2,4 +2,7 @@
 
 require_once "app/database.php";
 
-return \Doctrine\ORM\Tools\Console\ConsoleRunner::createHelperSet($entityManager);
+$helperSet = new \Symfony\Component\Console\Helper\HelperSet(array(
+    'em' => new \Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper($entityManager)
+));
+return $helperSet;
