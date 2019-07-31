@@ -1,5 +1,10 @@
 <?php
 
+use Doctrine\Common\DataFixtures\Loader;
+use ClementsBlog\app\fixtures\dataFixtures;
+use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+
 class App {
     
     protected $controller = 'home';
@@ -9,7 +14,6 @@ class App {
     public function __construct() {
         
         $url =$this->parseUrl();
-        
         if(file_exists('../app/controllers/' .$url[0]. '.php')){
             $this->controller = $url[0];
             unset($url[0]);
@@ -32,7 +36,26 @@ class App {
     
     public function parseUrl(){
         if(isset($_GET['url'])){
-            return $url= explode('/',filter_var(rtrim($_GET['url'],'/'),FILTER_SANITIZE_URL));
+            if($_GET['url']=='loadfixtures'){
+               /* 
+                $loader = new Loader();
+                //$loader->addFixture(new UserDataLoader());
+                $loader->addFixture(new UserFixtureLoader());
+        
+                $purger = new ORMPurger();
+                $executor = new ORMExecutor($em, $purger);
+                $executor->execute($loader->getFixtures(), true);*/
+            }
+            else{
+                return $url= explode('/',filter_var(rtrim($_GET['url'],'/'),FILTER_SANITIZE_URL));
+            }
+            
+            
+        }
+        //Si racine du site (clementsblog/) on affiche la page d'accueil (home/index)
+        else{
+            $url=['home','index'];
+            return $url;
         }
     }
 }
