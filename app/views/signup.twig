@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Clement's blog - Contact</title>
+  <!-- Bootstrap core CSS -->
+  
+  <link rel="stylesheet" href="clementsblog/public/theme/vendor/bootstrap/css/bootstrap.min.css" >
+  <!-- Custom CSS -->
+   <link rel="stylesheet" href="clementsblog/public/css/main.css" >
+  <!-- Custom fonts for this template -->
+  <link href="clementsblog/public/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  
+  <!-- Custom styles for this template -->
+  <link href="clementsblog/public/theme/css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand" href="/clementsblog/">In code we trust</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/home/articles">Les articles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/home/quiSuisJe">Qui suis-je ?</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('clementsblog/public/theme/img/coding-dark-bg.jpg')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                  <div class="site-heading">
+                    <h1>Le web de Clément</h1>
+                    <span class="subheading">Technologies, astuces et actualité web</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2 py-5">
+                <h1 class='text-center'>S'inscrire</h1>
+                <div class="wrapper fadeInDown">
+                    <div id="formContent">
+                        <!-- Tabs Titles -->
+                        <br>
+                        <!-- Login Form -->
+                        <form  method="post" action="registerUser">
+                            <input type="text" id="mail" class="" name="mail" placeholder="Email">
+                            <input type="password" id="password" class="" name="password" placeholder="Mot de passe">
+                            <input type="password" id="passwordRepeat" class="" name="passwordRepeat" placeholder="Répétez le mot de passe">
+                            <input type="text" id="nom" class="" name="nom" placeholder="Nom">
+                            <input type="text" id="prenom" class="" name="prenom" placeholder="Prénom">
+                            <input type="submit" class="" value="Valider">
+                        </form>
+                        {%if messageRetour is defined %} <div class="alert alert-danger" role="alert">{{messageRetour}}</div>
+                        {%endif%}
+                        <!-- Remind Passowrd -->
+                        <div id="formFooter">
+                          <p class="text-center">Déjà inscrit ? <a href="login">Se connecter</a> </p> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h6 class="text-center">Pour mieux me connaitre</h6>
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="clementsblog/public/pdf/cv.pdf" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-file-pdf fas fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <span style='font-size: 0.9em;display:block;'>CV</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://www.linkedin.com/in/cl%C3%A9ment-thuet/" target="_blank" >
+                                <span class="fa-stack fa-lg">
+                                  <i class="fas fa-circle fa-stack-2x"></i>
+                                  <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <span style='display:block;'>Linkedin</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="https://github.com/ClementThuet/" target="_blank">
+                                <span class="fa-stack fa-lg">
+                                  <i class="fas fa-circle fa-stack-2x"></i>
+                                  <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <span style='display:block;'>GitHub</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <br>
+                    <h6 class="text-center">Pour enrichir le contenu du site</h6>
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="/clementsblog/admin/login">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <span style='display:block;'>Se connecter</span>
+                            </a>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/clementsblog/admin/signup">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <span style='display:block;'>S'inscrire</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="clementsblog/public/theme/vendor/jquery/jquery.min.js"></script>
+    <script src="clementsblog/public/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom scripts for this template-->
+    <script src="clementsblog/public/theme/js/clean-blog.min.js"></script> 
+    </body>
+</html>

@@ -1,5 +1,6 @@
 <?php
 
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity @Table(name="Articles")
@@ -20,6 +21,30 @@ class Article
     
     /** @Column(type="datetime") **/
     protected $dateDerniereModif;
+    
+    /* One article has many comments. This is the inverse side.
+    * @OneToMany(targetEntity="Comment", mappedBy="article")
+    */
+    protected $commentaires;
+    
+    public function __construct()
+    {
+        $this->commentaires = new ArrayCollection();
+    }
+
+    public function getCommentaires()
+    {
+        return $this->commentaires;
+    }
+     
+    public function addCommentaire(Comment $commentaire)
+    {
+        //$this->commentaires= new ArrayCollection();
+       // var_dump($this);
+        $this->commentaires->add($commentaire);
+        $commentaire->setArticle($this);
+    }
+    
     
     function getId() {
         return $this->id;
@@ -60,6 +85,11 @@ class Article
     function setDateDerniereModif($dateDerniereModif) {
         $this->dateDerniereModif = $dateDerniereModif;
     }
+    
+    function setCommentaires($commentaires) {
+        $this->commentaires = $commentaires;
+    }
+
 
 
 }
