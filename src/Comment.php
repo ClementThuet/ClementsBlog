@@ -18,6 +18,12 @@ class Comment
     /** @Column(type="text") **/
     protected $contenu;
     
+    /**
+     * Many comments have one article. This is the owning side.
+     * @ManyToOne(targetEntity="Article", inversedBy="commentaires")
+    */
+    protected $article;
+    
     function getId() {
         return $this->id;
     }
@@ -49,6 +55,15 @@ class Comment
     function setContenu($contenu) {
         $this->contenu = $contenu;
     }
+    
+    function getArticle() {
+        return $this->article;
+    }
+
+    function setArticle($article) {
+        $this->article = $article;
+    }
+
 
 
   

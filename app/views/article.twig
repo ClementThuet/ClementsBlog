@@ -78,6 +78,17 @@
                 <p>{{article.contenu}} </p>
             </div>
         </div>
+        <!-- Commentaires -->    
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                {% for commentaire in commentaires %}
+                <div>
+                    <p>{{article.commentaire.contenu}}<p>
+                    <small>Le {{article.commentaire.date|date('dd-mm-YY')}}</small> 
+                </div>
+                {% endfor%}
+            </div>
+        </div>    
    </div>
   <hr>
 

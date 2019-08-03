@@ -41,7 +41,7 @@ class Home extends Controller{
    
    public function article($idArticle){
        
-       //Impossible de joindre database.php (récupération de l'entity manager
+        //Impossible de joindre database.php (récupération de l'entity manager
         include('database2.php');
        
         $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
@@ -52,17 +52,76 @@ class Home extends Controller{
         $articleRepository=$entityManager->getRepository('Article');
         $article = $articleRepository->find($idArticle);
         
+        $commentaires=$article->getCommentaires();
+        
+        
         //Rendu du template
-        echo $twig->render('article.twig',['article'=>$article]);
+        echo $twig->render('article.twig',['article'=>$article,'commentaires'=>$commentaires]);
+        
    }
    
-   public function E404(){
+    public function contact(){
+       
+        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $twig = new Twig\Environment($loader);
+        
+        //Rendu du template
+        echo $twig->render('contact.twig');
+    }
+    
+    public function sendEmail(){
+        // configure
+        $from = 'Clément Thuet <clementthuet7@gmail.com>';
+        $sendTo = 'Clément Thuet <clementthuet7@gmail.com>';
+        $subject = 'Nouveau message via le formulaire de contact de ClementsBlog';
+        $fields = array('name' => 'Nom', 'surname' => 'Prénom', 'phone' => 'Téléphone', 'email' => 'Email', 'message' => 'Message'); // array variable name => Text to appear in email
+        $okMessage = 'Message envoyé avec succès';
+        $errorMessage = 'Une erreur est survenue lors de l\'envoi du message, veuillez réesayer';
+
+        // let's do the sending
+        try
+        {
+            $emailText = "Nouveau message via le formulaire de contact de ClementsBlog\n=============================\n";
+
+            foreach ($_POST as $key => $value) {
+
+                if (isset($fields[$key])) {
+                    $emailText .= "$fields[$key]: $value\n";
+                }
+            }
+            mail($sendTo, $subject, $emailText, "From: " . $from);
+            $responseArray = array('type' => 'success', 'message' => $okMessage);
+        }
+        catch (\Exception $e)
+        {
+            $responseArray = array('type' => 'danger', 'message' => $errorMessage);
+        }
+
+        if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+            $encoded = json_encode($responseArray);
+
+            header('Content-Type: application/json');
+
+            echo $encoded;
+        }
+        else {
+            echo $responseArray['message'];
+        }
+    }
+    
+    public function quisuisje(){
+         //Rendu du template
+        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $twig = new Twig\Environment($loader);
+        echo $twig->render('quiSuisJe.twig');
+    }
+    public function E404(){
         
         //Rendu du template
         $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
         $twig = new Twig\Environment($loader);
         echo $twig->render('404.twig');
-   }
+    }
 
 
         
