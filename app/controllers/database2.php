@@ -17,9 +17,3 @@ $dbParams = array(
 );
 
 $entityManager = EntityManager::create($dbParams, $config);
-
-
-$articleRepository=$entityManager->getRepository('Article');
-$products = $articleRepository->findAll();
-//var_dump($products);
-$vartest='vartest';

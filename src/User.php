@@ -1,4 +1,5 @@
 <?php
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @Entity @Table(name="Users")
@@ -23,6 +24,24 @@ class User
     /** @Column(type="string") **/
     protected $type;
 
+    /**
+     * One user has many articles. This is the inverse side.
+     * @OneToMany(targetEntity="Article", mappedBy="user")
+     */
+    private $articles;
+    
+    public function __construct() {
+        $this->articles = new ArrayCollection();
+    }
+    
+    public function addArticle(Article $article)
+    {
+        if(!$this->articles->contains($article)){
+            $this->articles[] = $article;
+            $article->setUser($this);
+        }
+        
+    }
     public function getId()
     {
         return $this->id;

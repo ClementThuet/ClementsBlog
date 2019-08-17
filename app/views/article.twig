@@ -73,9 +73,10 @@
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <h1 class="title">{{article.titre}}</h1>
-                <img class="imgArticle" src="clementsblog/public/theme/img/coding-dark-bg.jpg"
                    <h4 class="post-title">{{article.chapo}} </h4>
                 <p>{{article.contenu}} </p>
+                <span>Par {{user.prenom}} {{user.nom}}  </span><br>
+                <small>Dernière modification le {{article.date|date('d-m-y')}}</small>
             </div>
         </div>
         <!-- Commentaires -->    

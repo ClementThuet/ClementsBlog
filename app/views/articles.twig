@@ -69,81 +69,44 @@
     </div>
   </header>
 
-  <!-- Main Content -->
- <!-- <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-                Env vars, tokens and good practices…
-            </h2>
-            <h3 class="post-subtitle">
-              It’s a fact, as developers, we making great usage of secrets. API tokens, database passwords, configuration parameters, and many more.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-             Le pair programming
-            </h2>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 18, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Science has not yet mastered prophecy
-            </h2>
-            <h3 class="post-subtitle">
-              We predict too much for the next year and yet far too little for the next ten.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on August 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Failure is not an option
-            </h2>
-            <h3 class="post-subtitle">
-              Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on July 8, 2019</p>
-        </div>
-        <hr>
-        <!-- Pager -- >
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </div>-->
+ 
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
                 <h1 class="title">Les articles</h1>
                 {% for article in articles %}
+                    <hr>
                    <h4 class="post-title">
                     {{article.titre}}
                 </h4>
                 <h6 class="post-title">{{article.chapo}} </h6>
                 <p>{{article.contenu|truncate(200)}} <a href="/clementsblog/home/article/{{article.id}}" >Lire la suite </a></p>
+                <small>Dernière mise à jour le {{article.dateDerniereModif|date('d-m-Y')}}</small>
                 {% endfor %}
+            </div>
+            <div class="row"> 
+                <div class="col-lg-12">
+                    <form method="post" action="rechercherArticle" role="form">
+                        <div class="form-group text-center">
+                            <input  class="form-control" type="text" name='recherche' placeholder="Recherche un article" aria-label="Search">
+                            <button type="submit" class="btn btn-search btn-labeled" value="Rechercher">
+                                <span class="btn-label">
+                                    <i class="fas fa-search"></i>
+                                </span> Rechercher
+                            </button>
+                            {% if recherche == true %}
+                                <a href="/clementsblog/home/articles">
+                                <button type="button" class="btn btn-search btn-labeled" >
+                                    <span class="btn-label">
+                                       <i class="fas fa-redo"></i>
+                                    </span> Réinitialiser
+                                </button>
+                                </a>
+                            {%endif%}
+                        </div>
+                    </form>   
+                </div>
+               
             </div>
         </div>
    </div>

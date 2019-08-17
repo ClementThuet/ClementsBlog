@@ -20,7 +20,8 @@ class Comment
     
     /**
      * Many comments have one article. This is the owning side.
-     * @ManyToOne(targetEntity="Article", inversedBy="commentaires")
+     * @ManyToOne(targetEntity="Article", cascade={"persist", "remove"}, inversedBy="commentaires")
+     * @JoinColumn(nullable=true, onDelete="SET NULL")
     */
     protected $article;
     

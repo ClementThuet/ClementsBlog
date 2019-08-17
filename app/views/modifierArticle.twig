@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Clement's blog - Contact</title>
+  <!-- Bootstrap core CSS -->
+  
+  <link rel="stylesheet" href="clementsblog/public/theme/vendor/bootstrap/css/bootstrap.min.css" >
+  <!-- Custom CSS -->
+   <link rel="stylesheet" href="clementsblog/public/css/main.css" >
+  <!-- Custom fonts for this template -->
+  <link href="clementsblog/public/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  
+  <!-- Custom styles for this template -->
+  <link href="clementsblog/public/theme/css/clean-blog.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+          <a class="navbar-brand" href="/clementsblog/">In code we trust</a>
+          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/">Accueil</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/home/articles">Les articles</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/home/quiSuisJe">Qui suis-je ?</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('clementsblog/public/theme/img/coding-dark-bg.jpg')">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                  <div class="site-heading">
+                    <h1>Le web de Clément</h1>
+                    <span class="subheading">Technologies, astuces et actualité web</span>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    {% if session.logged == true %}
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2 py-5">
+                <h1 class='text-center'>Modifier un article</h1>
+                <form  id="ajouter-article-form" method="post" action="/clementsblog/admin/modifierArticleSave/{{article.id}}" role="form"> 
+                    <div class="form-group">
+                        <label for="titre">Titre</label>
+                        <input type="text" id='titre' name="titre" class="form-control" value='{{article.titre}}'>
+                    </div>
+                    <div class="form-group">
+                        <label for="chapo">Chapô</label>
+                        <input type="text" id='chapo' name="chapo" class="form-control" value='{{article.chapo}}' >
+                    </div>
+                    <div class="form-group ">
+                        <label for="contenu">Contenu</label>
+                        <textarea  id='contenu' name="contenu" class="form-control" rows="10"> {{article.contenu}}</textarea>
+                    </div>
+                    <div class="form-group ">
+                        <label for="contenu">Auteur</label>
+                        <select  id='auteur' name="auteur" class="form-control" >
+                            <option value="{{article.user.id}}"> {{article.user.nom}}</option>
+                            {% for user in users %}
+                                {% if article.user.id != user.id%}
+                                    <option value="{{user.id}}"> {{user.nom}}</option>  
+                                {%endif%}
+                            {%endfor%}    
+   
+                        </select>
+                    </div>
+                    <div class=' text-center'>
+                        <button type="submit" class="btn btn-primary">Valider</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="/clementsblog/admin/dashboard">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-home fas fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <span style='display:block;'>Tableau de bord</span>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/clementsblog/admin/gestionArticles">
+                                <span class="fa-stack fa-lg">
+                                  <i class="fas fa-circle fa-stack-2x"></i>
+                                  <i class="far fa-newspaper fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <span style='display:block;'>Gestion des articles</span>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% else %}
+        <div class='container'>
+            <div class='row'>
+                <div class='col-lg-8 col-md-10 mx-auto text-center'>
+                    <h1 class='title'>Vous devez être connecté pour accèder à cette page</h1>
+                    <a href="/clementsblog/admin/login"><input type='button' value='Se connecter'></a>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+
+                        <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    {% endif %}
+    <!-- Footer -->
+    
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="clementsblog/public/theme/vendor/jquery/jquery.min.js"></script>
+    <script src="clementsblog/public/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom scripts for this template-->
+    <script src="clementsblog/public/theme/js/clean-blog.min.js"></script> 
+    </body>
+</html>

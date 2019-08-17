@@ -1,7 +1,4 @@
 <?php
-
-
-
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
 
@@ -21,3 +18,4 @@ $dbParams = array(
 );
 
 $entityManager = EntityManager::create($dbParams, $config);
+return $entityManager;

@@ -66,16 +66,67 @@
             </div>
         </div>
     </header>
-
+    {% if session.logged == true %}
     <div class="container">
         <div class="row">
             <div class="col-xl-8 offset-xl-2 py-5">
-                <h1 class='text-center'>Dashboard</h1>
-                <h4 class='text-center'>Bienvenue {{user.prenom}} {{user.nom}} </h4>
+                <h1 class='text-center'>Tableau de bord</h1>
+                <h4 class='text-center'>Bienvenue {{session.prenom}} {{session.nom}}  </h4>
+                <p> Que voulez-vous faire aujourd'hui ?</p>
+                <a href="/clementsblog/admin/ajouterArticle"><input type='button' value='Ajouter un article'></a>
+                <a href="/clementsblog/admin/gestionArticles"><input type='button' value='Modifier un article'></a>
+                <a href="/clementsblog/admin/gestionArticles"><input type='button' value='Supprimer un article'></a>
             </div>
         </div>
     </div>
     <hr>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <ul class="list-inline text-center">
+                        <li class="list-inline-item">
+                            <a href="/clementsblog/admin/dashboard">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-home fas fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <span style='display:block;'>Tableau de bord</span>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/clementsblog/admin/gestionArticles">
+                                <span class="fa-stack fa-lg">
+                                  <i class="fas fa-circle fa-stack-2x"></i>
+                                  <i class="far fa-newspaper fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <span style='display:block;'>Gestion des articles</span>
+                        </li>
+                        <li class="list-inline-item">
+                            <a href="/clementsblog/admin/deconnexion">
+                                <span class="fa-stack fa-lg">
+                                  <i class="fas fa-circle fa-stack-2x"></i>
+                                  <i class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></i>
+                                </span>
+                            </a>
+                            <span style='display:block;'>Déconnexion</span>
+                        </li>
+                    </ul>
+                    <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    {% else %}
+        <div class='container'>
+            <div class='row'>
+                <div class='col-lg-8 col-md-10 mx-auto text-center'>
+                    <h1 class='title'>Vous devez être connecté pour accèder à cette page</h1>
+                    <a href="/clementsblog/admin/login"><input type='button' value='Se connecter'></a>
+                </div>
+            </div>
+        </div>
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -87,7 +138,7 @@
             </div>
         </div>
     </footer>
-
+    {% endif %}
     <!-- Bootstrap core JavaScript-->
     <script src="clementsblog/public/theme/vendor/jquery/jquery.min.js"></script>
     <script src="clementsblog/public/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -68,71 +68,6 @@
       </div>
     </div>
   </header>
-
-  <!-- Main Content -->
- <!-- <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-                Env vars, tokens and good practices…
-            </h2>
-            <h3 class="post-subtitle">
-              It’s a fact, as developers, we making great usage of secrets. API tokens, database passwords, configuration parameters, and many more.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-             Le pair programming
-            </h2>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on September 18, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Science has not yet mastered prophecy
-            </h2>
-            <h3 class="post-subtitle">
-              We predict too much for the next year and yet far too little for the next ten.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on August 24, 2019</p>
-        </div>
-        <hr>
-        <div class="post-preview">
-          <a href="post.html">
-            <h2 class="post-title">
-              Failure is not an option
-            </h2>
-            <h3 class="post-subtitle">
-              Many say exploration is part of our destiny, but it’s actually our duty to future generations.
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
-            on July 8, 2019</p>
-        </div>
-        <hr>
-        <!-- Pager -- >
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
-      </div>
-    </div>
-  </div>-->
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-md-10 mx-auto">
@@ -142,6 +77,67 @@
                     <h6 class="post-subtitle">{{article.chapo}} </h6>
                     <p>{{article.contenu|truncate(200)}} <a href="/clementsblog/home/article/{{article.id}}" >Lire la suite </a></p>
                 {% endfor %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-8 offset-xl-2 py-5">
+                <h1 class="title">Me contacter</h1>
+                <p class="lead">Si vous souhaitez m'envoyer un message vous pouvez le faire ici</p>
+
+                <form id="contact-form" method="post" action="sendEmail" role="form">
+                    <div class="messages"></div>
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_name">Prénom *</label>
+                                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Merci de saisir votre prénom *" required="required" data-error="Le prénom est requis.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_lastname">Nom *</label>
+                                    <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Merci de saisir votre nom *" required="required" data-error="Le nom est requis.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_email">Email *</label>
+                                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Merci de saisir votre email*" required="required" data-error="Un email valide est requis.">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="form_phone">Téléphone</label>
+                                    <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Merci de saisir votre n° de téléphone">
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="form_message">Message *</label>
+                                    <textarea id="form_message" name="message" class="form-control" placeholder="Votre message*" rows="4" required="required" data-error="Please,leave us a message."></textarea>
+                                    <div class="help-block with-errors"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center">
+                                <input type="submit" class="btn btn-success btn-send" value="Envoyer">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p class="text-muted"><strong>*</strong> Ces champs sont requis.</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
    </div>

@@ -2,7 +2,8 @@
 
 class Home extends Controller{
    
-    public function index(){
+    
+   public function index(){
         
         //Impossible de joindre database.php (récupération de l'entity manager
         include('database2.php');
@@ -33,8 +34,7 @@ class Home extends Controller{
         
         //Récupération des articles
         $articleRepository=$entityManager->getRepository('Article');
-        $articles = $articleRepository->findAll();
-        
+        $articles = $articleRepository->findAllByDateDESC();
         //Rendu du template
         echo $twig->render('articles.twig',['articles'=>$articles]);
    }
@@ -51,15 +51,29 @@ class Home extends Controller{
         //Récupération des articles
         $articleRepository=$entityManager->getRepository('Article');
         $article = $articleRepository->find($idArticle);
-        
+        $user=$article->getUser();
+        $commentsRepository=$entityManager->getRepository('Comment');
         $commentaires=$article->getCommentaires();
-        
-        
         //Rendu du template
-        echo $twig->render('article.twig',['article'=>$article,'commentaires'=>$commentaires]);
-        
+        echo $twig->render('article.twig',['article'=>$article,'commentaires'=>$commentaires,'user'=>$user]);
    }
    
+   public function rechercherArticle(){
+       
+        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $twig = new Twig\Environment($loader);
+        $twig->addExtension(new Twig_Extensions_Extension_Text());
+        $twig->addGlobal('session', $_SESSION);
+        
+        include('database2.php');
+        $articleRepo=$entityManager->getRepository('Article');
+        $articlesRecherchees=$articleRepo->rechercheArticle($_POST['recherche']);
+        
+        $recherche=true;
+        var_dump($recherche);
+        echo $twig->render('articles.twig',['articles'=>$articlesRecherchees,'recherche'=>$recherche]);
+    }
+
     public function contact(){
        
         $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
@@ -70,7 +84,7 @@ class Home extends Controller{
     }
     
     public function sendEmail(){
-        // configure
+        // configure (à mettre ailleurs)
         $from = 'Clément Thuet <clementthuet7@gmail.com>';
         $sendTo = 'Clément Thuet <clementthuet7@gmail.com>';
         $subject = 'Nouveau message via le formulaire de contact de ClementsBlog';

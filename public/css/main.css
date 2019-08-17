@@ -6,6 +6,24 @@
     width:100%;
     margin-bottom: 4vh;
 }
+.btn-label {
+    position: relative;
+    left: -12px;
+    display: inline-block;
+    padding: 5px 11px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 3px 0 0 3px;
+}
+.btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.btn-search {
+    margin-top:2px;
+    padding : 0px 12px !important;
+    border: 1px solid #ced4da;
+    border-radius: .25rem !important;
+}
 /*Pour le formulaire de connexion*/
 .wrapper {
   display: flex;
@@ -72,7 +90,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text], input[type=password] {
+.inputConnexion{
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -93,11 +111,11 @@ input[type=text], input[type=password] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+.inputConnexion:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+.inputConnexion:placeholder {
   color: #cccccc;
 }
