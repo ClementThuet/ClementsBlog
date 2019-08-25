@@ -40,8 +40,13 @@ class User
             $this->articles[] = $article;
             $article->setUser($this);
         }
-        
     }
+    
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+    
     public function getId()
     {
         return $this->id;

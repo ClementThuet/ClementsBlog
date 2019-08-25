@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * @Entity @Table(name="Comments")
  **/
@@ -20,8 +19,7 @@ class Comment
     
     /**
      * Many comments have one article. This is the owning side.
-     * @ManyToOne(targetEntity="Article", cascade={"persist", "remove"}, inversedBy="commentaires")
-     * @JoinColumn(nullable=true, onDelete="SET NULL")
+     * @ManyToOne(targetEntity="Article", inversedBy="commentaires")
     */
     protected $article;
     

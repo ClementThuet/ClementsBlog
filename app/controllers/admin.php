@@ -30,16 +30,14 @@ class Admin extends Controller{
         //Récupération des utilisateurs
         $userRepository=$entityManager->getRepository('User');
         $users = $userRepository->findAll();
-        var_dump($_POST['login']);
-        var_dump($_POST['password']);
         //Parcours des utilisateurs enregistrés
+        $success=false;
         foreach ($users as $user){
             //Test si le mail soumis existe parmis nos utilisateurs
             if($user->getAdresseEmail()==$_POST['login']){
                 //Test si le mot de passe correspond bien à l'utilisateur
                 if($user->getMotDePasse()==$_POST['password']){
                     //Début de la session pour vérifier si un utilisateur est connecté
-                    var_dump('ds la connexion');
                     $twig->addGlobal('session', $_SESSION);
                     // On crée quelques variables de session dans $_SESSION
                     $_SESSION['logged'] = true;
@@ -47,13 +45,12 @@ class Admin extends Controller{
                     $_SESSION['mail'] = $user->getAdresseEmail();
                     $_SESSION['prenom'] = $user->getPrenom();
                     $_SESSION['nom'] = $user->getNom();
-                   
-                    echo $twig->render('dashboard.twig',['user'=>$user]);
+                    header('Location: dashboard'); 
                 }
             }
-            else{
-               //echo $twig->render('login.twig');
-            }
+        }
+        if ($success==false){
+            echo $twig->render('login.twig');
         }
     }
     
@@ -118,7 +115,7 @@ class Admin extends Controller{
         header('Location: /clementsblog/home/index'); 
     }
     
-    public function addComment(){
+    public function ajouterCommentaire($idCommentaire){
         
         $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
         $twig = new Twig\Environment($loader);
@@ -128,19 +125,18 @@ class Admin extends Controller{
 
         //Récupération de l'article
         $articleRepository=$entityManager->getRepository('Article');
-        $article = $articleRepository->find(2);
-        //var_dump($article->getCommentaires());
-        
+        $article = $articleRepository->find($idCommentaire);
         
         $comment = new Comment();
         $comment->setDate(new \DateTime(date('Y-m-d H:i:s')));
-        $comment->setContenu('Démonstration de ma réussite');
+        $comment->setContenu($_POST['commentaire']);
         $comment->setEtat('En attente de validation');
         $comment->setArticle($article);
         $article->addCommentaire($comment);
+        
         $entityManager->persist($comment);
-        //$entityManager->flush();
-
+        $entityManager->persist($article);
+       // $entityManager->flush();
         
         //echo $twig->render('article.twig',['article'=>$article]);
     }
@@ -152,6 +148,8 @@ class Admin extends Controller{
         $twig->addGlobal('session', $_SESSION);
         $twig->addExtension(new Twig_Extensions_Extension_Text());
         include('database2.php');
+        //Réinitilisation flash message 
+        $_SESSION['flashmessage']='';
         //Récupération des articles
         $articleRepository=$entityManager->getRepository('Article');
         $articles = $articleRepository->findAll();
@@ -167,7 +165,6 @@ class Admin extends Controller{
         $twig->addGlobal('session', $_SESSION);
         
         include('database2.php');
-        //Récupération des articles
        
         //Rendu du template
         echo $twig->render('ajouterArticle.twig');
@@ -188,7 +185,6 @@ class Admin extends Controller{
         $article->setDateDerniereModif(new \DateTime(date('Y-m-d H:i:s')));
         $user->addArticle($article);
         $article->setUser($user);
-       // var_dump($user);
         $entityManager->persist($article);
         $entityManager->persist($user);
         $entityManager->flush();

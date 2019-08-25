@@ -2,9 +2,40 @@
     text-align: center;
     margin-bottom: 4vh;
 }
-.imgArticle{
-    width:100%;
-    margin-bottom: 4vh;
+.site-heading{
+    height:30vh;
+}
+@media only screen and (max-width: 992px) {
+    .nav-link{
+        color:#343a40 !important;
+    }
+}
+@media only screen and (min-width: 510px) {
+    .inputSearchArticle{
+        width:25vw;
+    }
+    .flex-container{
+        display:flex;
+        justify-content: center;
+    }
+}
+.nomPrenom{
+    text-transform: uppercase;
+    color:black;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 15px;
+    margin-left:1vw;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+.photoClement{
+    width:13vw;
+}
+.post-chapo{
+    margin-top:2vh;
+    font-weight: 600;
+    font-size:22px;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 .btn-label {
     position: relative;
@@ -24,6 +55,7 @@
     border: 1px solid #ced4da;
     border-radius: .25rem !important;
 }
+
 /*Pour le formulaire de connexion*/
 .wrapper {
   display: flex;

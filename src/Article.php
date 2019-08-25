@@ -1,18 +1,13 @@
 <?php
-
-
-
 use Doctrine\Common\Collections\ArrayCollection;
-
 
 /**
  * @Entity @Table(name="Articles") 
  * @Entity(repositoryClass="ArticleRepository")
- */
-
-
+ **/
 class Article
 {
+    
     /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
     
@@ -31,34 +26,31 @@ class Article
     /**
      * Many article have one user. This is the owning side.
      * @ManyToOne(targetEntity="User", inversedBy="articles")
-     * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     protected $user;
     
     /* One article has many comments. This is the inverse side.
-    * @OneToMany(targetEntity="Comment", cascade={"persist", "remove"}, mappedBy="article")
+    * @OneToMany(targetEntity="Comment", mappedBy="article")
     */
     protected $commentaires;
     
 
     public function __construct()
     {
-        $this->commentaires = new Doctrine\Common\Collections\ArrayCollection;
+         $this->commentaires = new ArrayCollection();
     }
-    
     
     public function getCommentaires()
     {
         return $this->commentaires;
     }
      
-    public function addCommentaire(Comment $comment): self
+    public function addCommentaire(Comment $commentaire)
     {
-        if(!$this->commentaires->contains($comment)){
-            $this->commentaires[] = $comment;
-            $comment->setArticle($this);
+        if(!$this->commentaires->contains($commentaire)){
+            $this->commentaires[] = $commentaire;
+            $commentaire->setArticle($this);
         }
-        
     }
     
     public function removeCommentaire(Comment $comment): self

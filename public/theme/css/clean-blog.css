@@ -136,6 +136,7 @@ img::-moz-selection {
   }
 }
 
+
 @media only screen and (min-width: 992px) {
   #mainNav {
     -webkit-transition: background-color 0.2s;
@@ -147,14 +148,15 @@ img::-moz-selection {
   }
   #mainNav.is-fixed {
     /* when the user scrolls down, we hide the header right above the viewport */
-    position: fixed;
+   /*position: fixed;*/
     top: -67px;
+    color:white;
     -webkit-transition: -webkit-transform 0.2s;
     transition: -webkit-transform 0.2s;
     transition: transform 0.2s;
     transition: transform 0.2s, -webkit-transform 0.2s;
-    border-bottom: 1px solid white;
-    background-color: rgba(255, 255, 255, 0.9);
+  /*  border-bottom: 1px solid white;
+    background-color: rgba(255, 255, 255, 0.9);*/
   }
   #mainNav.is-fixed .navbar-brand {
     color: #212529;
@@ -163,7 +165,8 @@ img::-moz-selection {
     color: #0085A1;
   }
   #mainNav.is-fixed .navbar-nav > li.nav-item > a {
-    color: #212529;
+    /*color: #212529;*/
+    color:white;
   }
   #mainNav.is-fixed .navbar-nav > li.nav-item > a:focus, #mainNav.is-fixed .navbar-nav > li.nav-item > a:hover {
     color: #0085A1;
@@ -173,6 +176,19 @@ img::-moz-selection {
     -webkit-transform: translate3d(0, 100%, 0);
     transform: translate3d(0, 100%, 0);
   }
+  .nomPrenom{
+        text-transform: uppercase;
+        color:white;
+        font-weight: 800;
+        letter-spacing: 1px;
+        font-size: 20px;
+        margin-left:1vw;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+    .photoClement{
+        width:8vw;
+        max-height:200px;
+    }
 }
 
 header.masthead {
@@ -207,6 +223,18 @@ header.masthead .site-heading {
   header.masthead .site-heading {
     padding: 200px 0;
   }
+  .photoClement{
+    width:8vw;
+    max-height:200px;
+    }
+    .nomPrenom{
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-left:1vw;
+        font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+     }
 }
 
 header.masthead .page-heading,
@@ -233,8 +261,10 @@ header.masthead .site-heading .subheading {
 @media only screen and (min-width: 768px) {
   header.masthead .page-heading h1,
   header.masthead .site-heading h1 {
-    font-size: 80px;
+    font-size: 50px;
+    margin-bottom: 20px;
   }
+  
 }
 
 header.masthead .post-heading h1 {

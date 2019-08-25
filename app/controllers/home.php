@@ -52,6 +52,7 @@ class Home extends Controller{
         $articleRepository=$entityManager->getRepository('Article');
         $article = $articleRepository->find($idArticle);
         $user=$article->getUser();
+        $articles=$user->getArticles();
         $commentsRepository=$entityManager->getRepository('Comment');
         $commentaires=$article->getCommentaires();
         //Rendu du template
@@ -70,7 +71,6 @@ class Home extends Controller{
         $articlesRecherchees=$articleRepo->rechercheArticle($_POST['recherche']);
         
         $recherche=true;
-        var_dump($recherche);
         echo $twig->render('articles.twig',['articles'=>$articlesRecherchees,'recherche'=>$recherche]);
     }
 
