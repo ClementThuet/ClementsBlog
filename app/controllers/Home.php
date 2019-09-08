@@ -1,90 +1,101 @@
 <?php
 
+//require (dirname(__DIR__, 2).'/vendor/autoload.php');
+use ClementsBlog\Article;
+use ClementsBlog\Comment;
+use ClementsBlog\User;
+
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 class Home extends Controller{
    
+    public function E404(){
+        
+        //Rendu du template
+        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $twig = new Twig\Environment($loader);
+        echo $twig->render('404.twig');
+    } 
     
-   public function index(){
+    public function index(){
         
-        //Impossible de joindre database.php (récupération de l'entity manager
-        include('database2.php');
-        
-        
-        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
-        $twig = new Twig\Environment($loader);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
-        
-        //Récupération des articles
-        $articleRepository=$entityManager->getRepository('Article');
-        $articles = $articleRepository->findAll();
-        
-        //Rendu du template
-        echo $twig->render('home.twig',['articles'=>$articles]);
-        
-
-   }
-   
-   public function articles(){
-       
-       //Impossible de joindre database.php (récupération de l'entity manager
-        include('database2.php');
-       
-        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
-        $twig = new Twig\Environment($loader);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
-        
-        //Récupération des articles
-        $articleRepository=$entityManager->getRepository('Article');
-        $articles = $articleRepository->findAllByDateDESC();
-        //Rendu du template
-        echo $twig->render('articles.twig',['articles'=>$articles]);
-   }
-   
-   public function article($idArticle){
-       
-        //Impossible de joindre database.php (récupération de l'entity manager
-        include('database2.php');
-       
-        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
-        $twig = new Twig\Environment($loader);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
-        
-        //Récupération des articles
-        $articleRepository=$entityManager->getRepository('Article');
-        $article = $articleRepository->find($idArticle);
-        $user=$article->getUser();
-        $articles=$user->getArticles();
-        $commentsRepository=$entityManager->getRepository('Comment');
-        $commentaires=$article->getCommentaires();
-        //Rendu du template
-        echo $twig->render('article.twig',['article'=>$article,'commentaires'=>$commentaires,'user'=>$user]);
-   }
-   
-   public function rechercherArticle(){
-       
-        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        include(dirname(__DIR__, 1).'/database.php');
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
         $twig = new Twig\Environment($loader);
         $twig->addExtension(new Twig_Extensions_Extension_Text());
         $twig->addGlobal('session', $_SESSION);
         
-        include('database2.php');
+        //Récupération des articles
+        $articleRepository=$entityManager->getRepository('Article');
+        $articles = $articleRepository->findAll();
+        echo $twig->render('home.twig',['articles'=>$articles]);
+    }
+   
+    public function articles($page){
+       
+        include(dirname(__DIR__, 1).'/database.php');
+       
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
+        $twig = new Twig\Environment($loader);
+        $twig->addExtension(new Twig_Extensions_Extension_Text());
+        $twig->addGlobal('session', $_SESSION);
+        //Récupération des articles
+        $articleRepository=$entityManager->getRepository('Article');
+        //3 articles par page
+        $minResult=3*$page-3;
+        $maxResult=3*$page;
+        $articles = $articleRepository->findAllByDateDESC($minResult,$maxResult);
+        
+        echo $twig->render('articles.twig',['articles'=>$articles]);
+    }
+   
+    public function article($idArticle){
+       
+        include(dirname(__DIR__, 1).'/database.php');
+       
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
+        $twig = new Twig\Environment($loader);
+        $twig->addExtension(new Twig_Extensions_Extension_Text());
+        $twig->addGlobal('session', $_SESSION);
+        //Récupération des articles
+        $articleRepository=$entityManager->getRepository('Article');
+        $article = $articleRepository->find($idArticle);
+        $user=$article->getUser();
+        
+        
+        $articles=$user->getArticles();
+        $commentsRepository=$entityManager->getRepository('Comment');
+        $commentaires=$article->getCommentaires();
+        //var_dump($commentaires); // NULL
+        
+        echo $twig->render('article.twig',['article'=>$article,'commentaires'=>$commentaires,'user'=>$user]);
+    }
+   
+    public function rechercherArticle(){
+       
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
+        $twig = new Twig\Environment($loader);
+        $twig->addExtension(new Twig_Extensions_Extension_Text());
+        $twig->addGlobal('session', $_SESSION);
+        
+        include(dirname(__DIR__, 1).'/database.php');
         $articleRepo=$entityManager->getRepository('Article');
         $articlesRecherchees=$articleRepo->rechercheArticle($_POST['recherche']);
-        
         $recherche=true;
         echo $twig->render('articles.twig',['articles'=>$articlesRecherchees,'recherche'=>$recherche]);
     }
 
     public function contact(){
        
-        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
         $twig = new Twig\Environment($loader);
-        
+        $twig->addGlobal('session', $_SESSION);
         //Rendu du template
         echo $twig->render('contact.twig');
     }
     
     public function sendEmail(){
-        // configure (à mettre ailleurs)
+        // configuration
         $from = 'Clément Thuet <clementthuet7@gmail.com>';
         $sendTo = 'Clément Thuet <clementthuet7@gmail.com>';
         $subject = 'Nouveau message via le formulaire de contact de ClementsBlog';
@@ -92,7 +103,7 @@ class Home extends Controller{
         $okMessage = 'Message envoyé avec succès';
         $errorMessage = 'Une erreur est survenue lors de l\'envoi du message, veuillez réesayer';
 
-        // let's do the sending
+        //envoi
         try
         {
             $emailText = "Nouveau message via le formulaire de contact de ClementsBlog\n=============================\n";
@@ -125,17 +136,12 @@ class Home extends Controller{
     
     public function quisuisje(){
          //Rendu du template
-        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
+        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
         $twig = new Twig\Environment($loader);
+        $twig->addGlobal('session', $_SESSION);
         echo $twig->render('quiSuisJe.twig');
     }
-    public function E404(){
-        
-        //Rendu du template
-        $loader = new Twig\Loader\FilesystemLoader(__DIR__.'../../views');
-        $twig = new Twig\Environment($loader);
-        echo $twig->render('404.twig');
-    }
+    
 
 
         

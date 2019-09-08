@@ -1,5 +1,7 @@
 <?php
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping\OneToMany;
+
 
 /**
  * @Entity @Table(name="Users")

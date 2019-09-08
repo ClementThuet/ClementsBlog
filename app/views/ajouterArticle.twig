@@ -28,27 +28,28 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
         <div class="container">
-          <a class="navbar-brand" href="/clementsblog/">In code we trust</a>
-          <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/clementsblog/">Accueil</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/clementsblog/home/articles">Les articles</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/clementsblog/home/quiSuisJe">Qui suis-je ?</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
-              </li>
-            </ul>
-          </div>
+            <img class="rounded-circle photoClement" src="clementsblog/public/img/roundMe.png">
+            <div class="nomPrenom text-center">Clément <br> Thuet</div>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              Menu
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clementsblog/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clementsblog/home/articles/1">Les articles</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="/clementsblog/home/quisuisje">Qui suis-je ?</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
 
@@ -93,34 +94,34 @@
     <hr>
     <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto">
-                    <ul class="list-inline text-center">
-                        <li class="list-inline-item">
-                            <a href="/clementsblog/admin/dashboard">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fas fa-circle fa-stack-2x"></i>
-                                    <i class="fas fa-home fas fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                            <span style='display:block;'>Tableau de bord</span>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="/clementsblog/admin/gestionArticles">
-                                <span class="fa-stack fa-lg">
-                                  <i class="fas fa-circle fa-stack-2x"></i>
-                                  <i class="far fa-newspaper fa-stack-1x fa-inverse"></i>
-                                </span>
-                            </a>
-                            <span style='display:block;'>Gestion des articles</span>
-                        </li>
-                    </ul>
-                    <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
-                </div>
-            </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+                <li class="list-inline-item">
+                    <a href="/clementsblog/admin/dashboard">
+                        <span class="fa-stack fa-lg">
+                            <i class="fas fa-circle fa-stack-2x"></i>
+                            <i class="fas fa-home fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    <span style='display:block;'>Tableau de bord</span>
+                </li>
+                <li class="list-inline-item">
+                    <a href="/clementsblog/admin/deconnexion">
+                        <span class="fa-stack fa-lg">
+                          <i class="fas fa-circle fa-stack-2x"></i>
+                          <i class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                    <span style='display:block;'>Déconnexion</span>
+                </li>
+            </ul>
+          <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
         </div>
-    </footer>
+      </div>
+    </div>
+  </footer>
     {% else %}
         <div class='container'>
             <div class='row'>

@@ -1,6 +1,6 @@
 <?php
 
-
+namespace ClementsBlog\Image;
 /**
  * @Entity @Table(name="Images")
  **/

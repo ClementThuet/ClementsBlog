@@ -3,6 +3,8 @@
 /**
  * @Entity @Table(name="Comments")
  **/
+
+ // * @Entity(repositoryClass="ClementsBlog\src\Comment") 
 class Comment
 {
     /** @Id @Column(type="integer") @GeneratedValue **/
@@ -11,8 +13,8 @@ class Comment
     /** @Column(type="datetime") **/
     protected $date;
     
-    /** @Column(type="string") **/
-    protected $etat;
+    /** @Column(type="boolean") **/
+    protected $valide;
     
     /** @Column(type="text") **/
     protected $contenu;
@@ -31,8 +33,8 @@ class Comment
         return $this->date;
     }
 
-    function getEtat() {
-        return $this->etat;
+    function getValide() {
+        return $this->valide;
     }
 
     function getContenu() {
@@ -47,8 +49,8 @@ class Comment
         $this->date = $date;
     }
 
-    function setEtat($etat) {
-        $this->etat = $etat;
+    function setValide($valide) {
+        $this->valide = $valide;
     }
 
     function setContenu($contenu) {

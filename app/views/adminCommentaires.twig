@@ -8,7 +8,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
 
-  <title>Le web de Clément - Gestion des articles</title>
+  <title>Le web de Clément - Gestion des commentaires</title>
   <!-- Bootstrap core CSS -->
   
   <link rel="stylesheet" href="clementsblog/public/theme/vendor/bootstrap/css/bootstrap.min.css" >
@@ -27,30 +27,30 @@
 <body>
      <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <img class="rounded-circle photoClement" src="clementsblog/public/img/roundMe.png">
-            <div class="nomPrenom text-center">Clément <br> Thuet</div>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-              Menu
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/clementsblog/">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/clementsblog/home/articles/1">Les articles</a>
-                    </li>
-                    <li class="nav-item">
-                         <a class="nav-link" href="/clementsblog/home/quisuisje">Qui suis-je ?</a>
-                    </li>
-                    <li class="nav-item">
-                         <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
+          <div class="container">
+              <img class="rounded-circle photoClement" src="clementsblog/public/img/roundMe.png">
+              <div class="nomPrenom text-center">Clément <br> Thuet</div>
+              <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                Menu
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarResponsive">
+                  <ul class="navbar-nav ml-auto">
+                      <li class="nav-item">
+                          <a class="nav-link" href="/clementsblog/">Accueil</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" href="/clementsblog/home/articles/1">Les articles</a>
+                      </li>
+                      <li class="nav-item">
+                           <a class="nav-link" href="/clementsblog/home/quisuisje">Qui suis-je ?</a>
+                      </li>
+                      <li class="nav-item">
+                           <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
+                      </li>
+                  </ul>
+              </div>
+          </div>
     </nav>
 
     <!-- Page Header -->
@@ -70,7 +70,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-xl-12">
-                <h1 class='text-center title'>Gestion des articles</h1>
+                <h1 class='text-center title'>Gestion des commentaires</h1>
                 {%if session.flashmessage is not empty%}
                 <div class="alert alert-success" role="alert">
                     {{session.flashmessage}}
@@ -79,23 +79,23 @@
                 <table class='table text-center table-responsive'>
                     <thead class='thead-dark'>
                         <tr>
-                          <th scope="col">#</th>
-                          <th scope="col">Titre</th>
-                          <th scope="col">Chapô</th>
-                          <th scope="col">Contenu</th>
-                          <th scope="col">Modifier</th>
+                          <th scope="col">Article</th>
+                          <th scope="col">Date</th>
+                          <th scope="col">Aperçu</th>
+                          <th scope="col">Statut</th>
+                          <th scope="col">Valider</th>
                           <th scope="col">Supprimer</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {%for article in articles %}
+                        {%for commentaire in commentaires %}
                         <tr>
-                            <td>{{article.id}}</td>
-                            <td>{{article.titre}}</td>
-                            <td>{{article.chapo|truncate(25)}}</td>
-                            <td>{{article.contenu|truncate(50)}}</td>
-                            <td><a href="/clementsblog/admin/modifierArticle/{{article.id }}"><i class="far fa-edit"></i></a></td>
-                            <td><a href="/clementsblog/admin/supprimerArticle/{{article.id }}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                            <td>{{commentaire.article.titre|truncate(50)}}</td>
+                            <td>{{commentaire.date|date('d-m-y')}}</td>
+                            <td>{{commentaire.contenu|truncate(50)}}</td>
+                            <td>{{commentaire.valide ? 'Validé' : 'En attente de validation'}}</td>
+                            <td><a href="/clementsblog/admin/modifierCommentaire/{{commentaire.id}}"><i class="far fa-edit"></i></a></td>
+                            <td><a href="/clementsblog/admin/supprimerCommentaire/{{commentaire.id}}"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                         </tr>
                         {%endfor%}
                 </table>

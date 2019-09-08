@@ -4,6 +4,7 @@ use Doctrine\Common\DataFixtures\Loader;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
+
 class App {
     
     protected $controller = 'home';
@@ -11,15 +12,16 @@ class App {
     protected $params = [];
     
     public function __construct() {
+        //Démarrage session
         session_start();
         
-        $url =$this->parseUrl();
+         $url =$this->parseUrl();
         if(file_exists('../app/controllers/' .$url[0]. '.php')){
             $this->controller = $url[0];
             unset($url[0]);
         }
         //Si controller existe on l'appele sinon par défaut => home
-        require_once '../app/controllers/'. $this->controller .'.php';
+        require_once dirname(__DIR__, 2).'/app/controllers/'. $this->controller .'.php';
        
         $this->controller = new $this->controller;
         
@@ -36,14 +38,7 @@ class App {
     
     public function parseUrl(){
         if(isset($_GET['url'])){
-            if($_GET['url']=='loadfixtures'){
-              
-            }
-            else{
                 return $url= explode('/',filter_var(rtrim($_GET['url'],'/'),FILTER_SANITIZE_URL));
-            }
-            
-            
         }
         //Si racine du site (clementsblog/) on affiche la page d'accueil (home/index)
         else{

@@ -1,6 +1,6 @@
 <?php
 
-
+namespace ClementsBlog\Category;
 /**
  * @Entity @Table(name="Categories")
  **/

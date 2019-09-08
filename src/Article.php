@@ -1,5 +1,13 @@
 <?php
+
+include((dirname(__DIR__, 1).'/app/repository/ArticleRepository.php'));
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * @Entity @Table(name="Articles") 
@@ -29,7 +37,7 @@ class Article
      */
     protected $user;
     
-    /* One article has many comments. This is the inverse side.
+    /** One article has many comments. This is the inverse side.
     * @OneToMany(targetEntity="Comment", mappedBy="article")
     */
     protected $commentaires;
@@ -65,94 +73,54 @@ class Article
         return $this;
     }
     
-    function getId() {
+    public function getId() {
         return $this->id;
     }
 
-    function getTitre() {
+    public function getTitre() {
         return $this->titre;
     }
 
-    function getChapo() {
+    public function getChapo() {
         return $this->chapo;
     }
 
-    function getContenu() {
+    public function getContenu() {
         return $this->contenu;
     }
 
-    function getDateDerniereModif() {
+    public function getDateDerniereModif() {
         return $this->dateDerniereModif;
     }
 
-    function setId($id) {
+    public function setId($id) {
         $this->id = $id;
     }
 
-    function setTitre($titre) {
+    public function setTitre($titre) {
         $this->titre = $titre;
     }
 
-    function setChapo($chapo) {
+    public function setChapo($chapo) {
         $this->chapo = $chapo;
     }
 
-    function setContenu($contenu) {
+     public function setContenu($contenu) {
         $this->contenu = $contenu;
     }
 
-    function setDateDerniereModif($dateDerniereModif) {
+     public function setDateDerniereModif($dateDerniereModif) {
         $this->dateDerniereModif = $dateDerniereModif;
     }
     
-    function setCommentaires($commentaires) {
+    public function setCommentaires($commentaires) {
         $this->commentaires = $commentaires;
     }
-    function getUser() {
+    public function getUser() {
         return $this->user;
     }
 
-    function setUser($user) {
+    public function setUser($user) {
         $this->user = $user;
-    }
-
-
-
-
-
-}
-
-
-
-use Doctrine\ORM\EntityRepository;
-
-
-class ArticleRepository extends EntityRepository{
-    
-    public function rechercheArticle($toSearch){
-        include('../app/controllers/database2.php');
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $queryBuilder->select('a')
-            ->from(Article::class, 'a')
-            ->where('a.titre LIKE :titre')
-            ->setParameter('titre','%'.addcslashes($toSearch, '%_').'%')
-            ->orderBy('a.dateDerniereModif', 'DESC')
-            ->setMaxResults(10);
-        $query = $queryBuilder->getQuery();
-        $results = $query->getResult();
-        
-        return $results;
-    }
-    
-    public function findAllByDateDESC(){
-         include('../app/controllers/database2.php');
-        $queryBuilder = $entityManager->createQueryBuilder();
-        $queryBuilder->select('a')
-            ->from(Article::class, 'a')
-            ->orderBy('a.dateDerniereModif', 'DESC');
-        $query = $queryBuilder->getQuery();
-        $results = $query->getResult();
-        
-        return $results;
     }
 }

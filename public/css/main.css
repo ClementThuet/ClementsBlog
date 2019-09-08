@@ -55,7 +55,25 @@
     border: 1px solid #ced4da;
     border-radius: .25rem !important;
 }
-
+.bloc{
+    display:flex;
+    width:100%;
+    justify-content:center;
+}
+@media only screen and (min-width: 992px) {
+    .bt_dashboard{
+        width:25vw;
+        font-size: 0.8em !important;
+        padding : 15px 20px !important;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .bt_dashboard{
+        width:80vw;
+        font-size: 0.9em !important;
+        padding : 20px 20px !important;
+    }
+}
 /*Pour le formulaire de connexion*/
 .wrapper {
   display: flex;

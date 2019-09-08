@@ -26,35 +26,33 @@
 </head>
 
 <body>
-
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container">
-      <!--<a class="navbar-brand" href="/clementsblog/">In code we trust</a>-->
-      <img class="rounded-circle photoClement" src="clementsblog/public/img/roundMe.png">
-      <div class="nomPrenom text-center">Clément <br> Thuet</div>
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        Menu
-        <i class="fas fa-bars"></i>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/clementsblog/">Accueil</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/clementsblog/home/articles">Les articles</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/clementsblog/home/quiSuisJe">Qui suis-je ?</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+ <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container">
+            <img class="rounded-circle photoClement" src="clementsblog/public/img/roundMe.png">
+            <div class="nomPrenom text-center">Clément <br> Thuet</div>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+              Menu
+              <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clementsblog/">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/clementsblog/home/articles/1">Les articles</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="/clementsblog/home/quisuisje">Qui suis-je ?</a>
+                    </li>
+                    <li class="nav-item">
+                         <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
   <!-- Page Header -->
   <header class="masthead" style="background-image: url('clementsblog/public/theme/img/coding-dark-bg.jpg')">
@@ -184,26 +182,50 @@
             </ul>
             <br>
             <h6 class="text-center">Pour enrichir le contenu du site</h6>
-            <ul class="list-inline text-center">
-                <li class="list-inline-item">
-                    <a href="/clementsblog/admin/login">
-                        <span class="fa-stack fa-lg">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <span style='display:block;'>Se connecter</span>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="/clementsblog/admin/signup">
-                        <span class="fa-stack fa-lg">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <span style='display:block;'>S'inscrire</span>
-                    </a>
-                </li>
-            </ul>
+            {% if session.logged == true%}
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="/clementsblog/admin/dashboard">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-home fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <span style='display:block;'>Tableau de bord</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="/clementsblog/admin/deconnexion">
+                            <span class="fa-stack fa-lg">
+                              <i class="fas fa-circle fa-stack-2x"></i>
+                              <i class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                        <span style='display:block;'>Déconnexion</span>
+                    </li>
+                </ul>
+            {%else%}
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="/clementsblog/admin/login">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <span style='display:block;'>Se connecter</span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="/clementsblog/admin/signup">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
+                            </span>
+                            <span style='display:block;'>S'inscrire</span>
+                        </a>
+                    </li>
+                </ul>
+            {%endif%}
+            
           <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
         </div>
       </div>

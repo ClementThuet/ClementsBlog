@@ -1,8 +1,7 @@
 <?php
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\ORM\EntityManager;
-
-require_once "vendor/autoload.php";
+require_once dirname(__DIR__, 1).'/vendor/autoload.php';
 
 $isDevMode = true;
 $config = Setup::createAnnotationMetadataConfiguration(array("./src"), $isDevMode);
