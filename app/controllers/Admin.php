@@ -1,51 +1,36 @@
 <?php
 
-//use ClementsBlog\app\core\Controller;
-
-
-
+//Controlleur pour toutes les actions effectuable par les utilisateurs inscrits ou s'inscrivant
 class Admin extends Controller{
    
-   
+    //Affiche la page d'erreur 404
     public function E404(){
         
-        //Rendu du template
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
         echo $twig->render('404.twig');
     }
     
+    //Affiche la page de login avec l'état de la connexion, par défaut NULL
     public function login($etat = null){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
-        $twig->addGlobal('session', $_SESSION);
-        //Rendu du template
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
         echo $twig->render('login.twig',['messageRetour'=>$etat]);
-   }
+    }
+    
+    //Logique de la connexion, vérifie et connecte l'utilisateur
     public function loginUser(){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        //Impossible de joindre database.php (récupération de l'entity manager
-        include(dirname(__DIR__, 1).'/database.php');
-        
-        //Récupération des utilisateurs
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
+        $loginSuccess=false; 
+        //Recherche parmis les utilisateurs
         $userRepository=$entityManager->getRepository('User');
         $users = $userRepository->findAll();
-        //Parcours des utilisateurs enregistrés
-        $success=false;
         foreach ($users as $user){
-            //Test si le mail soumis existe parmis nos utilisateurs
+            //Vérification si les identifiants soumis existent parmis nos utilisateurs
             if($user->getAdresseEmail()==$_POST['login']){
-                //Test si le mot de passe correspond bien à l'utilisateur
                 if($user->getMotDePasse()==$_POST['password']){
-                    //Début de la session pour vérifier si un utilisateur est connecté
-                    $twig->addGlobal('session', $_SESSION);
-                    // On crée quelques variables de session dans $_SESSION
+                    //On enregistre les informations utilisateurs en session
                     $_SESSION['logged'] = true;
                     $_SESSION['id'] = $user->getId();
                     $_SESSION['mail'] = $user->getAdresseEmail();
@@ -55,42 +40,33 @@ class Admin extends Controller{
                 }
             }
         }
-        if ($success==false){
+        if ($loginSuccess==false){
             echo $twig->render('login.twig');
         }
     }
     
+    //Affiche le tableau de bord
     public function dashboard(){
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
         
-        //Réinitilisation flashmessage
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        //Réinitilisation du flashmessage
         $_SESSION['flashmessage']='';
         echo $twig->render('dashboard.twig');
     }
     
+    //Affiche la page d'inscription
     public function signup(){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
-        $twig->addGlobal('session', $_SESSION);
-        //Rendu du template
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
         echo $twig->render('signup.twig');
     }
-   
+    
+    //Logique de l'inscription, vérification que les 2 mots de passe saisies correspondent
     public function registerUser(){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        //Impossible de joindre database.php (récupération de l'entity manager
-        include(dirname(__DIR__, 1).'/database.php');
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
 
-        //Récupération des articles
-        $userRepository=$entityManager->getRepository('User');
-        //Si success password
         if ($_POST['password']==$_POST['passwordRepeat']){
             $user = new User;
             $user->setAdresseEmail($_POST['mail']);
@@ -100,90 +76,73 @@ class Admin extends Controller{
             $user->setType('utilisateur');
             $entityManager->persist($user);
             $entityManager->flush();
-            
-            $messageRetour ="Inscription effectuée, vous pouvez maintenant vous connecter.";
-            
-            //Neccessite un mix de ces trois la, une redirection vers la route 'signup' avec passage de parametre
-            //return $twig->redirectToRoute('login', array('messageRetour' => $messageRetour));
             header('Location: login/signupSuccess'); 
-            // echo $twig->render('login.twig',['messageRetour'=>$messageRetour]);
         }
-        //Si echec password
         else{
             $messageRetour ="Veuillez saisir deux mots de passe identiques.";
             echo $twig->render('signup.twig',['messageRetour'=>$messageRetour]);
         }
     }
     
+    //Détruit la session
     public function deconnexion(){
         
         session_destroy();
         header('Location: /clementsblog/home/index'); 
     }
     
+    //Enregistre un nouveau commentaire
     public function ajouterCommentaire($idCommentaire){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        //Impossible de joindre database.php (récupération de l'entity manager
-        include(dirname(__DIR__, 1).'/database.php');
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
 
         //Récupération de l'article
         $articleRepository=$entityManager->getRepository('Article');
         $article = $articleRepository->find($idCommentaire);
         
+        //Création du commentaire avec date du jour et statut "Non validé"
         $comment = new Comment();
         $comment->setDate(new \DateTime(date('Y-m-d H:i:s')));
         $comment->setContenu($_POST['commentaire']);
         $comment->setValide(0);
         $comment->setArticle($article);
         $article->addCommentaire($comment);
-        
         $entityManager->persist($comment);
         $entityManager->persist($article);
         $entityManager->flush();
         header('Location: /clementsblog/home/article/'.$article->getId().'');
     }
     
+    //Affiche tous les commentaires
     public function modererCommentaires(){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
-        include(dirname(__DIR__, 1).'/database.php');
-        //Réinitilisation flash message 
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
+        //Réinitilisation du message flash 
         $_SESSION['flashmessage']='';
-        //Récupération des articles
+        
         $commentRepository = $entityManager->getRepository('Comment');
         $commentaires = $commentRepository->findAll();
-        
         echo $twig->render('adminCommentaires.twig',['commentaires'=>$commentaires]); 
     }
     
+    //Affiche les informations d'un commentaire et permet de modifier son statut
     public function modifierCommentaire($idCommentaire){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
         
-        include(dirname(__DIR__, 1).'/database.php');
-        //Récupération des articles
         $commentRepository=$entityManager->getRepository('Comment');
         $commentaire = $commentRepository->find($idCommentaire);
-        
-        //Rendu du template
         echo $twig->render('modifierCommentaire.twig',['commentaire'=>$commentaire]);
     }
     
+    //Enregistre la modification du statut d'un commentaire
     public function modifierCommentaireSave($idCommentaire){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        include(dirname(__DIR__, 1).'/database.php');
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
         
         $commentRepository=$entityManager->getRepository('Comment');
         $commentaire = $commentRepository->find($idCommentaire);
@@ -191,19 +150,19 @@ class Admin extends Controller{
         $entityManager->persist($commentaire);
         $entityManager->flush();
         
-        //Définition du message d'information
+        //Définition du message flash d'information
         $_SESSION['flashmessage']='Commentaire modifié avec succès';
         header('Location: /clementsblog/admin/modererCommentaires');
     }
     
+    //Supprime un commentaire
     public function supprimerCommentaire($idCommentaire){
+        
+        //Sécurité supplémentaire pour s'assurer que l'utilisateur est bien connecté
         if($_SESSION['logged']==true){
-            $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-            $twig = new Twig\Environment($loader);
-            $twig->addGlobal('session', $_SESSION);
-            $twig->addExtension(new Twig_Extensions_Extension_Text());
-
-            include(dirname(__DIR__, 1).'/database.php');
+            require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+            require_once(dirname(__DIR__, 1).'/database.php');
+            
             $commentRepository=$entityManager->getRepository('Comment');
             $commentaire = $commentRepository->find($idCommentaire);
             $entityManager->remove($commentaire);
@@ -212,47 +171,42 @@ class Admin extends Controller{
             //Définition du message d'information
             $_SESSION['flashmessage']='Commentaire supprimé avec succès';
             header('Location: /clementsblog/admin/modererCommentaires');
-            
         }
         else{
             header('Location: /clementsblog/admin/login');
         }
     }
     
+    //Affiche tous les articles
     public function gestionArticles(){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
-        include(dirname(__DIR__, 1).'/database.php');
-        //Réinitilisation flash message 
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
+        
         $_SESSION['flashmessage']='';
-        //Récupération des articles
         $articleRepository=$entityManager->getRepository('Article');
         $articles = $articleRepository->findAll();
-        //Rendu du template
         echo $twig->render('adminArticles.twig',['articles'=>$articles]);
     }
     
+    //Affiche la page permettant d'ajouter un article
     public function ajouterArticle(){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        include(dirname(__DIR__, 1).'/database.php');
-        //Rendu du template
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
+        
         echo $twig->render('ajouterArticle.twig');
     }
+    
+    //Enregistrement d'un article
     public function ajouterArticleSave(){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
         
-        include(dirname(__DIR__, 1).'/database.php');
         $userRepo=$entityManager->getRepository('User');
         $user= $userRepo->find($_SESSION['id']);
+        
         $article=new Article();
         $article->setTitre($_POST['titre']);
         $article->setChapo($_POST['chapo']);
@@ -263,41 +217,35 @@ class Admin extends Controller{
         $entityManager->persist($article);
         $entityManager->persist($user);
         $entityManager->flush();
+        
         $_SESSION['flashmessage']='Article ajouté avec succès';
-        //Redirection
         header('Location: /clementsblog/admin/gestionArticles');
-       
     }
+    
+    //Affiche la page permettant de modifier un article
     public function modifierArticle($idArticle){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
-        $twig->addExtension(new Twig_Extensions_Extension_Text());
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
         
-        include(dirname(__DIR__, 1).'/database.php');
-        //Récupération des articles
         $articleRepository=$entityManager->getRepository('Article');
         $article = $articleRepository->find($idArticle);
-        //$article->getUser
         $userRepository=$entityManager->getRepository('User');
         $users = $userRepository->findAll();
-        //Rendu du template
+        //En paramètre l'article et la liste des utilisateurs pouvant être séléctionnés comme auteur
         echo $twig->render('modifierArticle.twig',['article'=>$article,'users'=>$users]);
     }
     
+    //Enregistre la modification d'un article
     public function modifierArticleSave($idArticle){
         
-        $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-        $twig = new Twig\Environment($loader);
-        $twig->addGlobal('session', $_SESSION);
+        require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+        require_once(dirname(__DIR__, 1).'/database.php');
         
-        include(dirname(__DIR__, 1).'/database.php');
-        //Récupération des articles
         $articleRepository=$entityManager->getRepository('Article');
         $article = $articleRepository->find($idArticle);
         $userRepository=$entityManager->getRepository('User');
-        $user = $userRepository->find($_POST['auteur']);
+        $user = $userRepository->find($_POST['auteurID']);
         
         $article->setTitre($_POST['titre']);
         $article->setChapo($_POST['chapo']);
@@ -306,20 +254,20 @@ class Admin extends Controller{
         $article->setDateDerniereModif(new \DateTime(date('Y-m-d H:i:s')));
         $entityManager->persist($article);
         $entityManager->flush();
+        
         //Définition du message d'information
         $_SESSION['flashmessage']='Article modifié avec succès';
         header('Location: /clementsblog/admin/gestionArticles');
     }
     
+    //Supprime un article
     public function supprimerArticle($idArticle){
+        
+        //Sécurité supplémentaire pour s'assurer que l'utilisateur est bien connecté
         if($_SESSION['logged']==true){
-            $loader = new Twig\Loader\FilesystemLoader(dirname(__DIR__, 1).'/views');
-            $twig = new Twig\Environment($loader);
-            $twig->addGlobal('session', $_SESSION);
-            $twig->addExtension(new Twig_Extensions_Extension_Text());
-
-            include(dirname(__DIR__, 1).'/database.php');
-            //Récupération des articles
+            $require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+            require_once(dirname(__DIR__, 1).'/database.php');
+            
             $articleRepository=$entityManager->getRepository('Article');
             $article = $articleRepository->find($idArticle);
             $entityManager->remove($article);
@@ -334,4 +282,4 @@ class Admin extends Controller{
         }
     }
     
-    }
+}

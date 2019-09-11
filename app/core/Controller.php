@@ -2,7 +2,7 @@
 
 class Controller
 {
-    protected function model($model){
+   /* protected function model($model){
         
         require_once '../src/'.$model.'.php';
         return new $model();
@@ -10,5 +10,5 @@ class Controller
     
     protected function view($view,$data =[]){
         require_once('../app/views/'. $view .'.php');
-    }
+    }*/
 }

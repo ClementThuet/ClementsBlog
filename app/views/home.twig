@@ -1,244 +1,226 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <title>Le web de Clément </title>
-
-  <!-- Bootstrap core CSS -->
-  
-  <link rel="stylesheet" href="clementsblog/public/theme/vendor/bootstrap/css/bootstrap.min.css" >
-  <!-- Custom CSS -->
-   <link rel="stylesheet" href="clementsblog/public/css/main.css" >
-  <!-- Custom fonts for this template -->
-  <link href="clementsblog/public/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-  
-  <!-- Custom styles for this template -->
-  <link href="clementsblog/public/theme/css/clean-blog.css" rel="stylesheet">
-
-</head>
-
-<body>
- <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container">
-            <img class="rounded-circle photoClement" src="clementsblog/public/img/roundMe.png">
-            <div class="nomPrenom text-center">Clément <br> Thuet</div>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-              Menu
-              <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/clementsblog/">Accueil</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/clementsblog/home/articles/1">Les articles</a>
-                    </li>
-                    <li class="nav-item">
-                         <a class="nav-link" href="/clementsblog/home/quisuisje">Qui suis-je ?</a>
-                    </li>
-                    <li class="nav-item">
-                         <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
-                    </li>
-                </ul>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Le web de Clément </title>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="clementsblog/public/theme/vendor/bootstrap/css/bootstrap.min.css" >
+        <!-- Custom CSS -->
+         <link rel="stylesheet" href="clementsblog/public/css/main.css" >
+        <!-- Custom fonts for this template -->
+        <link href="clementsblog/public/theme/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <!-- Custom styles for this template -->
+        <link href="clementsblog/public/theme/css/clean-blog.css" rel="stylesheet">
+    </head>
+    <body>
+     <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+            <div class="container">
+                <img class="rounded-circle photoClement" src="clementsblog/public/img/roundMe.png">
+                <div class="nomPrenom text-center">Clément <br> Thuet</div>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    Menu
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/clementsblog/">Accueil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/clementsblog/home/articles/1">Les articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/clementsblog/home/quisuisje">Qui suis-je ?</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/clementsblog/home/contact">Contact</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('clementsblog/public/theme/img/coding-dark-bg.jpg')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Le web de Clément</h1>
-            <!--<span class="subheading">Technologies, astuces et actualité web</span>-->
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <h1 class="title">Les derniers articles</h1>
-                {% for article in articles|slice(0,5) %}
-                    <hr> 
-                    <a href="/clementsblog/home/article/{{article.id}}" >
-                    <h4 class="post-title">{{article.titre}}</h4></a>
-                    <h6 class="post-chapo">{{article.chapo}} </h6>
-                    <p>{{article.contenu|truncate(200)}} <a href="/clementsblog/home/article/{{article.id}}" >Lire l'article </a></p>
-                {% endfor %}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-8 offset-xl-2 py-5">
-                <h1 class="title">Me contacter</h1>
-                <p class="lead">Si vous souhaitez m'envoyer un message vous pouvez le faire ici</p>
-
-                <form id="contact-form" method="post" action="sendEmail" role="form">
-                    <div class="messages"></div>
-                    <div class="controls">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="form_name">Prénom *</label>
-                                    <input id="form_name" type="text" name="name" class="form-control" placeholder="Merci de saisir votre prénom *" required="required" data-error="Le prénom est requis.">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="form_lastname">Nom *</label>
-                                    <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Merci de saisir votre nom *" required="required" data-error="Le nom est requis.">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="form_email">Email *</label>
-                                    <input id="form_email" type="email" name="email" class="form-control" placeholder="Merci de saisir votre email*" required="required" data-error="Un email valide est requis.">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="form_phone">Téléphone</label>
-                                    <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Merci de saisir votre n° de téléphone">
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="form_message">Message *</label>
-                                    <textarea id="form_message" name="message" class="form-control" placeholder="Votre message*" rows="4" required="required" data-error="Please,leave us a message."></textarea>
-                                    <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 text-center">
-                                <input type="submit" class="btn btn-success btn-send" value="Envoyer">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <p class="text-muted"><strong>*</strong> Ces champs sont requis.</p>
-                            </div>
+        </nav>
+        <!-- Page Header -->
+        <header class="masthead" style="background-image: url('clementsblog/public/theme/img/coding-dark-bg.jpg')">
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                        <div class="site-heading">
+                            <h1>Le web de Clément</h1>
                         </div>
                     </div>
-                </form>
+                </div>
+            </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-md-10 mx-auto">
+                    <h1 class="title">Les derniers articles</h1>
+                    {% for article in articles|slice(0,5) %}
+                        <hr> 
+                        <a href="/clementsblog/home/article/{{article.id}}" >
+                        <h4 class="post-title">{{article.titre}}</h4></a>
+                        <h6 class="post-chapo">{{article.chapo}} </h6>
+                        <p>{{article.contenu|truncate(200)}} <a href="/clementsblog/home/article/{{article.id}}" >Lire l'article </a></p>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2 py-5">
+                    <h1 class="title">Me contacter</h1>
+                    <p class="lead">Si vous souhaitez m'envoyer un message vous pouvez le faire ici</p>
+                    <form id="contact-form" method="post" action="sendEmail" role="form">
+                        <div class="messages"></div>
+                        <div class="controls">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="form_name">Prénom *</label>
+                                        <input id="form_name" type="text" name="name" class="form-control" placeholder="Merci de saisir votre prénom *" required="required" data-error="Le prénom est requis.">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="form_lastname">Nom *</label>
+                                        <input id="form_lastname" type="text" name="surname" class="form-control" placeholder="Merci de saisir votre nom *" required="required" data-error="Le nom est requis.">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="form_email">Email *</label>
+                                        <input id="form_email" type="email" name="email" class="form-control" placeholder="Merci de saisir votre email*" required="required" data-error="Un email valide est requis.">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="form_phone">Téléphone</label>
+                                        <input id="form_phone" type="tel" name="phone" class="form-control" placeholder="Merci de saisir votre n° de téléphone">
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="form_message">Message *</label>
+                                        <textarea id="form_message" name="message" class="form-control" placeholder="Votre message*" rows="4" required="required" data-error="Please,leave us a message."></textarea>
+                                        <div class="help-block with-errors"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <input type="submit" class="btn btn-success btn-send" value="Envoyer">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <p class="text-muted"><strong>*</strong> Ces champs sont requis.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-   </div>
-  <hr>
-
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <h6 class="text-center">Pour mieux me connaitre</h6>
-            <ul class="list-inline text-center">
-                <li class="list-inline-item">
-                    <a href="clementsblog/public/pdf/cv.pdf" target="_blank">
-                        <span class="fa-stack fa-lg">
-                            <i class="fas fa-circle fa-stack-2x"></i>
-                            <i class="fas fa-file-pdf fas fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <span style='font-size: 0.9em;display:block;'>CV</span>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="https://www.linkedin.com/in/cl%C3%A9ment-thuet/" target="_blank" >
-                        <span class="fa-stack fa-lg">
-                          <i class="fas fa-circle fa-stack-2x"></i>
-                          <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <span style='display:block;'>Linkedin</span>
-                    </a>
-                </li>
-                <li class="list-inline-item">
-                    <a href="https://github.com/ClementThuet/" target="_blank">
-                        <span class="fa-stack fa-lg">
-                          <i class="fas fa-circle fa-stack-2x"></i>
-                          <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                        <span style='display:block;'>GitHub</span>
-                    </a>
-                </li>
-            </ul>
-            <br>
-            <h6 class="text-center">Pour enrichir le contenu du site</h6>
-            {% if session.logged == true%}
-                <ul class="list-inline text-center">
-                    <li class="list-inline-item">
-                        <a href="/clementsblog/admin/dashboard">
-                            <span class="fa-stack fa-lg">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fas fa-home fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <span style='display:block;'>Tableau de bord</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="/clementsblog/admin/deconnexion">
-                            <span class="fa-stack fa-lg">
-                              <i class="fas fa-circle fa-stack-2x"></i>
-                              <i class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></i>
-                            </span>
-                        </a>
-                        <span style='display:block;'>Déconnexion</span>
-                    </li>
-                </ul>
-            {%else%}
-                <ul class="list-inline text-center">
-                    <li class="list-inline-item">
-                        <a href="/clementsblog/admin/login">
-                            <span class="fa-stack fa-lg">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <span style='display:block;'>Se connecter</span>
-                        </a>
-                    </li>
-                    <li class="list-inline-item">
-                        <a href="/clementsblog/admin/signup">
-                            <span class="fa-stack fa-lg">
-                                <i class="fas fa-circle fa-stack-2x"></i>
-                                <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <span style='display:block;'>S'inscrire</span>
-                        </a>
-                    </li>
-                </ul>
-            {%endif%}
-            
-          <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Bootstrap core JavaScript-->
-  <script src="clementsblog/public/theme/vendor/jquery/jquery.min.js"></script>
-  <script src="clementsblog/public/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Custom scripts for this template-->
-  <script src="clementsblog/public/theme/js/clean-blog.min.js"></script> 
-
-</body>
-
+        <hr>
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-md-10 mx-auto">
+                      <h6 class="text-center">Pour mieux me connaitre</h6>
+                        <ul class="list-inline text-center">
+                            <li class="list-inline-item">
+                                <a href="clementsblog/public/pdf/cv.pdf" target="_blank">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fas fa-file-pdf fas fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <span style='font-size: 0.9em;display:block;'>CV</span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://www.linkedin.com/in/cl%C3%A9ment-thuet/" target="_blank" >
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <span style='display:block;'>Linkedin</span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a href="https://github.com/ClementThuet/" target="_blank">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fas fa-circle fa-stack-2x"></i>
+                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <span style='display:block;'>GitHub</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <br>
+                        <h6 class="text-center">Pour enrichir le contenu du site</h6>
+                        {% if session.logged == true%}
+                            <ul class="list-inline text-center">
+                                <li class="list-inline-item">
+                                    <a href="/clementsblog/admin/dashboard">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                            <i class="fas fa-home fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                        <span style='display:block;'>Tableau de bord</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="/clementsblog/admin/deconnexion">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                            <i class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                    </a>
+                                    <span style='display:block;'>Déconnexion</span>
+                                </li>
+                            </ul>
+                        {%else%}
+                            <ul class="list-inline text-center">
+                                <li class="list-inline-item">
+                                    <a href="/clementsblog/admin/login">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                            <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                        <span style='display:block;'>Se connecter</span>
+                                    </a>
+                                </li>
+                                <li class="list-inline-item">
+                                    <a href="/clementsblog/admin/signup">
+                                        <span class="fa-stack fa-lg">
+                                            <i class="fas fa-circle fa-stack-2x"></i>
+                                            <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
+                                        </span>
+                                        <span style='display:block;'>S'inscrire</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        {%endif%}
+                        <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+      <!-- Bootstrap core JavaScript-->
+      <script src="clementsblog/public/theme/vendor/jquery/jquery.min.js"></script>
+      <script src="clementsblog/public/theme/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+      <!-- Custom scripts for this template-->
+      <script src="clementsblog/public/theme/js/clean-blog.min.js"></script> 
+    </body>
 </html>
