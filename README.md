@@ -41,8 +41,10 @@ $dbParams = array(
 ```
 ### Sending email with contact form
 I use fake sendmail to send email in local, you need to install it (explanation here : https://www.glob.com.au/sendmail/) and configure the sendmail.ini, to do so :
-Define your SMTP server, I used Gmail
+
+Define your SMTP server, I used Gmail<br>
 ``` smtp_server=smtp.gmail.com ```
+
 It needs access to your mailbox so define your credentials<br>
 ``` 
 auth_username=clementxxxgmail.com
@@ -57,4 +59,4 @@ That's all, you can now access to ClementsBlog and sign in to create your first 
 * https://github.com/ClementThuet/
 
 ## Acknowledgments
-Thanks to my mentor **Soma Bini** (https://www.linkedin.com/in/soma-bini-08173680) for his advices, support and his ability to wake up early 
+Thanks to my mentor **Soma Bini** (https://www.linkedin.com/in/soma-bini-08173680) for his advices, support and his ability to wake up early. 
