@@ -148,14 +148,15 @@ img::-moz-selection {
   }
   #mainNav.is-fixed {
     /* when the user scrolls down, we hide the header right above the viewport */
-   /*position: fixed;*/
-    top: -67px;
+   
+    position: fixed;
+    top: -20vh;
     color:white;
     -webkit-transition: -webkit-transform 0.2s;
     transition: -webkit-transform 0.2s;
     transition: transform 0.2s;
     transition: transform 0.2s, -webkit-transform 0.2s;
-  /*  border-bottom: 1px solid white;
+    /* border-bottom: 1px solid white;
     background-color: rgba(255, 255, 255, 0.9);*/
   }
   #mainNav.is-fixed .navbar-brand {
@@ -173,8 +174,8 @@ img::-moz-selection {
   }
   #mainNav.is-visible {
     /* if the user changes the scrolling direction, we show the header */
-    -webkit-transform: translate3d(0, 100%, 0);
-    transform: translate3d(0, 100%, 0);
+   /* -webkit-transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 100%, 0);*/
   }
   .nomPrenom{
         text-transform: uppercase;
