@@ -6,6 +6,7 @@
         <meta name="description" content="">
         <meta name="author" content="">
         <title>Le web de Clément - Qui suis-je ?</title>
+        <link rel="shortcut icon" type="image/png" href="clementsblog/public/img/roundMe.png"/>
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="clementsblog/public/theme/vendor/bootstrap/css/bootstrap.min.css" >
         <!-- Custom CSS -->
@@ -60,11 +61,18 @@
         </header>
         <div class="container">
             <div class="row">
-                <div class="col-lg-8 col-md-10 mx-auto text-center">
-                    <h1>A propos de moi</h1>
-                    <br>
-                    <h6>Développeur web full-stack</h6>
-                    <span class="subheading">This is what I do.</span>
+                <div class="col-lg-12 col-md-10 ">
+                    <h1 class='title text-center'>A propos de moi</h1>
+                    <div class="col-lg-12  col-sm-12 col-12 " >
+                        <p>Laissez-moi me présenter.<p>
+                        <p>Je m'appelle Clément Thuet et je suis développeur web freelance avec le statut d'auto-entrepreneur, j'ai commencé le développement web car 
+                        j'aimais la possibilité de donner vie à mes idées, et petit à petit je me 
+                        suis pris de passion pour les défis que l'on peut y relever.</p>
+                        <p>Aujourd'hui je trouve formidable les challenges apportés par les professionnels
+                            qui ont besoin de simplifier leurs tâches et de se dégager du temps.<br>
+                        À chaque projet je prends plaisir à appliquer mes compétences et à en développer d'autres.</p>
+                        <p>Je suis toujours à la recherche de nouveaux projets excitants !</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,83 +80,85 @@
         <footer>
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-8 col-md-10 mx-auto">
-                      <h6 class="text-center">Pour mieux me connaitre</h6>
-                        <ul class="list-inline text-center">
-                            <li class="list-inline-item">
-                                <a href="clementsblog/public/pdf/cv.pdf" target="_blank">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fas fa-file-pdf fas fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                    <span style='font-size: 0.9em;display:block;'>CV</span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://www.linkedin.com/in/cl%C3%A9ment-thuet/" target="_blank" >
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                    <span style='display:block;'>Linkedin</span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://github.com/ClementThuet/" target="_blank">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                    <span style='display:block;'>GitHub</span>
-                                </a>
-                            </li>
-                        </ul>
-                        <br>
-                        <h6 class="text-center">Pour enrichir le contenu du site</h6>
-                        {% if session.logged == true%}
+                    <div class="col-lg-12 col-md-12 mx-auto flex-container-evenly">
+                        <div class="menuMieuxMeConnaitre">
+                            <h6 class="text-center">Pour mieux me connaitre</h6>
                             <ul class="list-inline text-center">
                                 <li class="list-inline-item">
-                                    <a href="/clementsblog/admin/dashboard">
+                                    <a href="clementsblog/public/pdf/cv.pdf" target="_blank">
                                         <span class="fa-stack fa-lg">
                                             <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fas fa-home fa-stack-1x fa-inverse"></i>
+                                            <i class="fas fa-file-pdf fas fa-stack-1x fa-inverse"></i>
                                         </span>
-                                        <span style='display:block;'>Tableau de bord</span>
+                                        <span style='font-size: 0.9em;display:block;'>CV</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href="/clementsblog/admin/deconnexion">
+                                    <a href="https://www.linkedin.com/in/cl%C3%A9ment-thuet/" target="_blank" >
                                         <span class="fa-stack fa-lg">
                                             <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></i>
+                                            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
                                         </span>
-                                    </a>
-                                    <span style='display:block;'>Déconnexion</span>
-                                </li>
-                            </ul>
-                        {%else%}
-                            <ul class="list-inline text-center">
-                                <li class="list-inline-item">
-                                    <a href="/clementsblog/admin/login">
-                                        <span class="fa-stack fa-lg">
-                                            <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>
-                                        </span>
-                                        <span style='display:block;'>Se connecter</span>
+                                        <span style='display:block;'>Linkedin</span>
                                     </a>
                                 </li>
                                 <li class="list-inline-item">
-                                    <a href="/clementsblog/admin/signup">
+                                    <a href="https://github.com/ClementThuet/" target="_blank">
                                         <span class="fa-stack fa-lg">
                                             <i class="fas fa-circle fa-stack-2x"></i>
-                                            <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
+                                            <i class="fab fa-github fa-stack-1x fa-inverse"></i>
                                         </span>
-                                        <span style='display:block;'>S'inscrire</span>
+                                        <span style='display:block;'>GitHub</span>
                                     </a>
                                 </li>
                             </ul>
-                        {%endif%}
-                        <p class="copyright text-muted">Copyright &copy; Clément's blog 2019</p>
+                        </div>
+                        <div class="menuEnrichirSite">
+                            <h6 class="text-center">Pour enrichir le contenu du site</h6>
+                            {% if session.logged == true%}
+                                <ul class="list-inline text-center">
+                                    <li class="list-inline-item">
+                                        <a href="/clementsblog/admin/dashboard">
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fas fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-home fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <span style='display:block;'>Tableau de bord</span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="/clementsblog/admin/deconnexion">
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fas fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-sign-out-alt fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                        </a>
+                                        <span style='display:block;'>Déconnexion</span>
+                                    </li>
+                                </ul>
+                            {%else%}
+                                <ul class="list-inline text-center">
+                                    <li class="list-inline-item">
+                                        <a href="/clementsblog/admin/login">
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fas fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-sign-in-alt fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <span style='display:block;'>Se connecter</span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <a href="/clementsblog/admin/signup">
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fas fa-circle fa-stack-2x"></i>
+                                                <i class="fas fa-user-plus fa-stack-1x fa-inverse"></i>
+                                            </span>
+                                            <span style='display:block;'>S'inscrire</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            {%endif%}
+                        </div>
                     </div>
                 </div>
             </div>

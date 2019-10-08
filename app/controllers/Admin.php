@@ -11,10 +11,10 @@ class Admin extends Controller{
     }
     
     //Affiche la page de login avec l'état de la connexion, par défaut NULL
-    public function login($etat = null){
+    public function login($messageRetour = null){
         
         require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
-        echo $twig->render('login.twig',['messageRetour'=>$etat]);
+        echo $twig->render('login.twig',['messageRetour'=>$messageRetour]);
     }
     
     //Logique de la connexion, vérifie et connecte l'utilisateur
@@ -29,7 +29,7 @@ class Admin extends Controller{
         foreach ($users as $user){
             //Vérification si les identifiants soumis existent parmis nos utilisateurs
             if($user->getAdresseEmail()==$_POST['login']){
-                if($user->getMotDePasse()==$_POST['password']){
+                if(password_verify($_POST['password'], $user->getMotDePasse())){
                     //On enregistre les informations utilisateurs en session
                     $_SESSION['logged'] = true;
                     $_SESSION['id'] = $user->getId();
@@ -41,7 +41,9 @@ class Admin extends Controller{
             }
         }
         if ($loginSuccess==false){
-            echo $twig->render('login.twig');
+            $messageRetour ="Identifiants incorrects";
+            $messageAlert="danger";
+            echo $twig->render('login.twig',['messageRetour'=>$messageRetour,'msgAlert'=>$messageAlert]);
         }
     }
     
@@ -62,25 +64,44 @@ class Admin extends Controller{
     }
     
     //Logique de l'inscription, vérification que les 2 mots de passe saisies correspondent
+    //et que l'adresse mail n'existe pas déjà
     public function registerUser(){
         
         require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
         require_once(dirname(__DIR__, 1).'/database.php');
-
+        
+        $userRepository=$entityManager->getRepository('User');
+        $users = $userRepository->findAll();
+        $doublonMail=false;
         if ($_POST['password']==$_POST['passwordRepeat']){
-            $user = new User;
-            $user->setAdresseEmail($_POST['mail']);
-            $user->setMotDePasse($_POST['password']);
-            $user->setNom($_POST['nom']);
-            $user->setPrenom($_POST['prenom']);
-            $user->setType('utilisateur');
-            $entityManager->persist($user);
-            $entityManager->flush();
-            header('Location: login/signupSuccess'); 
+            foreach ($users as $user) {
+                if($_POST['mail']==$user->getAdresseEmail()){
+                    $doublonMail=true;
+                }
+            }
+            if($doublonMail == false){
+                $user = new User;
+                $user->setAdresseEmail($_POST['mail']);
+                $user->setMotDePasse(password_hash($_POST['password'], PASSWORD_DEFAULT));
+                $user->setNom($_POST['nom']);
+                $user->setPrenom($_POST['prenom']);
+                $user->setType('utilisateur');
+                $entityManager->persist($user);
+                $entityManager->flush();
+                $messageRetour="Inscription effectuée, vous pouvez vous connecter";
+                $messageAlert="success";
+                echo $twig->render('login.twig',['messageRetour'=>$messageRetour,'msgAlert'=>$messageAlert]);
+            }
+            else{
+                $messageRetour ="L'adresse email saisie existe déjà, essayer de vous connecter";
+                $messageAlert="danger";
+                echo $twig->render('login.twig',['messageRetour'=>$messageRetour,'msgAlert'=>$messageAlert]);
+            }
         }
         else{
             $messageRetour ="Veuillez saisir deux mots de passe identiques.";
-            echo $twig->render('signup.twig',['messageRetour'=>$messageRetour]);
+            $messageAlert="danger";
+            echo $twig->render('signup.twig',['messageRetour'=>$messageRetour,'msgAlert'=>$messageAlert]);
         }
     }
     
