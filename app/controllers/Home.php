@@ -1,11 +1,11 @@
 <?php
 
 //Controlleur pour toutes les actions effectuable par tous les utilisateurs
-class Home extends Controller{
+class Home{
    
     //Affiche la page d'erreur 404
-    public function E404(){
-          
+    public function E404()
+    {
         require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
         echo $twig->render('404.twig');
     } 

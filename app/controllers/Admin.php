@@ -1,7 +1,7 @@
 <?php
 
 //Controlleur pour toutes les actions effectuable par les utilisateurs inscrits ou s'inscrivant
-class Admin extends Controller{
+class Admin{
    
     //Affiche la page d'erreur 404
     public function E404(){
@@ -11,8 +11,8 @@ class Admin extends Controller{
     }
     
     //Affiche la page de login avec l'état de la connexion, par défaut NULL
-    public function login($messageRetour = null){
-        
+    public function login($messageRetour = null)
+    {
         require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
         echo $twig->render('login.twig',['messageRetour'=>$messageRetour]);
     }
@@ -28,7 +28,7 @@ class Admin extends Controller{
         $users = $userRepository->findAll();
         foreach ($users as $user){
             //Vérification si les identifiants soumis existent parmis nos utilisateurs
-            if($user->getAdresseEmail()==$_POST['login']){
+            if(isset($_POST['login']) && $user->getAdresseEmail()==$_POST['login']){
                 if(password_verify($_POST['password'], $user->getMotDePasse())){
                     //On enregistre les informations utilisateurs en session
                     $_SESSION['logged'] = true;
@@ -286,7 +286,7 @@ class Admin extends Controller{
         
         //Sécurité supplémentaire pour s'assurer que l'utilisateur est bien connecté
         if($_SESSION['logged']==true){
-            $require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+            require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
             require_once(dirname(__DIR__, 1).'/database.php');
             
             $articleRepository=$entityManager->getRepository('Article');
