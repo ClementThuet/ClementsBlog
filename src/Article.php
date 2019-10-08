@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping\OneToMany;
  **/
 class Article
 {
-    
     /** @Id @Column(type="integer") @GeneratedValue **/
     protected $id;
     
@@ -38,7 +37,7 @@ class Article
     protected $user;
     
     /** One article has many comments. This is the inverse side.
-    * @OneToMany(targetEntity="Comment", mappedBy="article")
+    * @OneToMany(targetEntity="Comment", mappedBy="article", cascade={"persist", "remove"})
     */
     protected $commentaires;
     

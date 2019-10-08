@@ -3,8 +3,6 @@
 /**
  * @Entity @Table(name="Comments")
  **/
-
- // * @Entity(repositoryClass="ClementsBlog\src\Comment") 
 class Comment
 {
     /** @Id @Column(type="integer") @GeneratedValue **/
