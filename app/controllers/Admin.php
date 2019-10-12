@@ -125,13 +125,17 @@ class Admin{
         //Création du commentaire avec date du jour et statut "Non validé"
         $comment = new Comment();
         $comment->setDate(new \DateTime(date('Y-m-d H:i:s')));
-        $comment->setContenu($_POST['commentaire']);
-        $comment->setValide(0);
-        $comment->setArticle($article);
-        $article->addCommentaire($comment);
-        $entityManager->persist($comment);
-        $entityManager->persist($article);
-        $entityManager->flush();
+        //Vérfication que le commentaire n'est pas vide
+        if (!empty($_POST['commentaire']) AND !ctype_space($_POST['commentaire']) ) 
+        {
+            $comment->setContenu($_POST['commentaire']);
+            $comment->setValide(0);
+            $comment->setArticle($article);
+            $article->addCommentaire($comment);
+            $entityManager->persist($comment);
+            $entityManager->persist($article);
+            $entityManager->flush();
+        }
         header('Location: /clementsblog/home/article/'.$article->getId().'');
     }
     
@@ -227,19 +231,20 @@ class Admin{
         
         $userRepo=$entityManager->getRepository('User');
         $user= $userRepo->find($_SESSION['id']);
-        
-        $article=new Article();
-        $article->setTitre($_POST['titre']);
-        $article->setChapo($_POST['chapo']);
-        $article->setContenu($_POST['contenu']);
-        $article->setDateDerniereModif(new \DateTime(date('Y-m-d H:i:s')));
-        $user->addArticle($article);
-        $article->setUser($user);
-        $entityManager->persist($article);
-        $entityManager->persist($user);
-        $entityManager->flush();
-        
-        $_SESSION['flashmessage']='Article ajouté avec succès';
+        if (!empty($_POST['contenu']) AND !ctype_space($_POST['contenu']) ) 
+        {
+            $article=new Article();
+            $article->setTitre($_POST['titre']);
+            $article->setChapo($_POST['chapo']);
+            $article->setContenu($_POST['contenu']);
+            $article->setDateDerniereModif(new \DateTime(date('Y-m-d H:i:s')));
+            $user->addArticle($article);
+            $article->setUser($user);
+            $entityManager->persist($article);
+            $entityManager->persist($user);
+            $entityManager->flush();
+            $_SESSION['flashmessage']='Article ajouté avec succès';
+        }
         header('Location: /clementsblog/admin/gestionArticles');
     }
     
@@ -268,16 +273,18 @@ class Admin{
         $userRepository=$entityManager->getRepository('User');
         $user = $userRepository->find($_POST['auteurID']);
         
-        $article->setTitre($_POST['titre']);
-        $article->setChapo($_POST['chapo']);
-        $article->setContenu($_POST['contenu']);
-        $article->setUser($user);
-        $article->setDateDerniereModif(new \DateTime(date('Y-m-d H:i:s')));
-        $entityManager->persist($article);
-        $entityManager->flush();
-        
-        //Définition du message d'information
-        $_SESSION['flashmessage']='Article modifié avec succès';
+        if (!empty($_POST['contenu']) AND !ctype_space($_POST['contenu']) ) 
+        {
+            $article->setTitre($_POST['titre']);
+            $article->setChapo($_POST['chapo']);
+            $article->setContenu($_POST['contenu']);
+            $article->setUser($user);
+            $article->setDateDerniereModif(new \DateTime(date('Y-m-d H:i:s')));
+            $entityManager->persist($article);
+            $entityManager->flush();
+            //Définition du message d'information
+            $_SESSION['flashmessage']='Article modifié avec succès';
+        }
         header('Location: /clementsblog/admin/gestionArticles');
     }
     

@@ -81,17 +81,40 @@ class Home{
         $okMessage = 'Message envoyé avec succès';
         $errorMessage = 'Une erreur est survenue lors de l\'envoi du message, veuillez réesayer';
 
-        //envoi
+        //Tentative d'envoi
         try
         {
             $emailText = "Nouveau message via le formulaire de contact de ClementsBlog\n=============================\n";
+            //Stockage des éventuelles erreurs dans le formulaire
+            $errors=[];
             foreach ($_POST as $key => $value) {
                 if (isset($fields[$key])) {
+                    //Test des champs ayant des critères à respecter
+                    if($fields[$key] == 'Email')
+                    {
+                        if (filter_var($value, FILTER_VALIDATE_EMAIL) == false) {
+                            array_push($errors,'Email invalide');
+                        }
+                    }
+                    if($fields[$key] == 'Message')
+                    {
+                        if (empty($value) OR ctype_space($value) ) {
+                            array_push($errors,'Le message ne peut pas être laissé vide');
+                        }
+                    }
+                    //Sauvergarde du corps du texte
                     $emailText .= "$fields[$key]: $value\n";
                 }
             }
+            //Si il y a une/des erreurs on renvois sur la page du formalaire et on affiche l'erreur
+            if (!empty($errors)){
+                require_once(dirname(__DIR__, 1).'/includes/TwigConfig.php');
+                echo $twig->render('contact.twig',['errors'=>$errors]);
+            }
+            //Si il n y a pas d'erreur, on envoit le mail et on redirige vers la page d'accueil
             mail($sendTo, $subject, $emailText, "From: " . $from);
             $responseArray = array('type' => 'success', 'message' => $okMessage);
+            header('Location: /clementsblog/');      
         }
         catch (\Exception $e)
         {

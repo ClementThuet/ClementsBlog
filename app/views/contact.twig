@@ -64,6 +64,11 @@
                 <div class="col-xl-8 offset-xl-2 py-5">
                     <h1>Me contacter</h1>
                     <p class="lead">Si vous souhaitez m'envoyer un message vous pouvez le faire ici</p>
+                    {% if errors is defined %}
+                        {% for error in errors %}
+                            <div class="alert alert-danger" role="alert">{{error}}</div>
+                        {%endfor%}
+                    {%endif%}
                     <form id="contact-form" method="post" action="sendEmail" role="form">
                         <div class="messages"></div>
                         <div class="controls">
@@ -87,7 +92,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="form_email">Email *</label>
-                                        <input id="form_email" type="email" name="email" class="form-control" placeholder="Merci de saisir votre email*" required="required" data-error="Valid email is required.">
+                                        <input id="form_email" type="text" name="email" class="form-control" placeholder="Merci de saisir votre email*" required="required" data-error="Valid email is required.">
                                         <div class="help-block with-errors"></div>
                                     </div>
                                 </div>
