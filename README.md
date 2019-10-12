@@ -25,6 +25,11 @@ Make sure your application point to /clementsblog/public/index.php as defined in
 ```
 RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 ```
+
+### Database import 
+You can find the database structure to import in the folder "Database structure".<br>
+Then you can simply import clementsblog.sql.
+
 ### Database configuration
 Configure your database according to your personal configuration in clementsblog/app/database.php
 
